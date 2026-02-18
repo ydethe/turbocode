@@ -1,13 +1,18 @@
+import random
+
 from pyturbocode.TurboCodec import TurboCodec
 
 
 def test_codec():
+    random.seed(4651354)
+
     codec = TurboCodec()
 
-    data = b"Hello, world!" * 10
+    data = b"Hello, world! " * 10
     enc = codec.encode(data)
 
-    data_decoded = codec.decode(enc)
+    mod_enc = enc[:15] + random.randbytes(5) + enc[20:]
+    data_decoded = codec.decode(mod_enc)
 
     assert data_decoded == data
 
